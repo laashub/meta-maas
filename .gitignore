@@ -1,0 +1,7 @@
+.tox/
+__pycache__/
+parts/
+prime/
+stage/
+*.egg-info
+*.snap

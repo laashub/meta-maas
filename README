@@ -1,0 +1,15 @@
+.. -*- mode: rst -*-
+
+************************************
+meta-MAAS: meta - Metal as a Service
+************************************
+
+
+meta - Metal as a Service -- meta-MAAS -- lets you managed multiple MAAS
+regions through one tool. A defined YAML file allows syncronasing users and
+boot images between regions a generated output provides status information
+about each region in a single HTML report.
+
+For more information on MAAS see the `MAAS guide`_.
+
+.. _MAAS guide: https://maas.io/

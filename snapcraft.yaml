@@ -1,0 +1,16 @@
+name: meta-maas
+version: 0.1
+summary: Tool to manage multiple MAAS regions
+description: Tool to manage multiple MAAS regions
+grade: devel
+confinement: strict
+
+apps:
+  meta-maas:
+    command: bin/meta-maas
+
+parts:
+  meta-maas:
+    plugin: python
+    source: .
+    requirements: requirements.txt
