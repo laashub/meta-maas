@@ -1,3 +1,4 @@
+.cache/
 .tox/
 __pycache__/
 parts/

@@ -1,2 +1,4 @@
+jsonschema
 pbr
+pyyaml
 git+https://github.com/alburnum/alburnum-maas-client.git#egg=alburnum_maas_client
