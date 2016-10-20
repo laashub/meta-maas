@@ -1,0 +1,9 @@
+regions:
+  test:
+    url: http://localhost:5240/MAAS
+    apikey: 8Q3HHgCnBuUjNdHjFX:mvJvBpvEV5J7CVDjef:sgnnMwdL444zKbM65jSJNVbtH3Dm7Gh2
+users:
+  test:
+    email: test@localhost
+    password: password
+    is_superuser: True

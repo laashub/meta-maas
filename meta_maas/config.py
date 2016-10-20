@@ -5,8 +5,8 @@
 
 import os
 
-from jsonschema import validate
 import yaml
+from jsonschema import validate
 
 
 SCHEMA = {
@@ -15,7 +15,7 @@ SCHEMA = {
         "regions": {
             "type": "object",
             "patternProperties": {
-                "^\w+$": {
+                r"^[\w-]+$": {
                     "type": "object",
                     "properties": {
                         "url": {
@@ -29,11 +29,12 @@ SCHEMA = {
                     "required": ["url", "apikey"],
                 },
             },
+            "additionalProperties": False,
         },
         "users": {
             "type": "object",
             "patternProperties": {
-                "^\w+$": {
+                r"^\w+$": {
                     "type": "object",
                     "properties": {
                         "email": {
@@ -50,6 +51,7 @@ SCHEMA = {
                     "required": ["email", "password"],
                 },
             },
+            "additionalProperties": False,
         },
         "images": {
             "type": "object",
@@ -63,7 +65,7 @@ SCHEMA = {
                         "selections": {
                             "type": "object",
                             "patternProperties": {
-                                "^\w+$": {
+                                r"^\w+$": {
                                     "type": "object",
                                     "properties": {
                                         "releases": {
@@ -87,6 +89,7 @@ SCHEMA = {
                                     "required": ["releases", "arches"],
                                 },
                             },
+                            "additionalProperties": False,
                         },
                     },
                     "additionalProperties": False,
@@ -95,7 +98,7 @@ SCHEMA = {
                 "custom": {
                     "type": "object",
                     "patternProperties": {
-                        "^\w+$": {
+                        r"^[\w-]+$": {
                             "type": "object",
                             "properties": {
                                 "path": {
@@ -105,13 +108,14 @@ SCHEMA = {
                                     "type": "string",
                                 },
                                 "filetype": {
-                                    "type": "boolean",
+                                    "enum": ["tgz", "ddtgz"],
                                 },
                             },
                             "additionalProperties": False,
                             "required": ["path", "architecture"],
                         },
                     },
+                    "additionalProperties": False,
                 },
             },
             "additionalProperties": False,
@@ -122,7 +126,7 @@ SCHEMA = {
 }
 
 
-class ConfigErorr(Exception):
+class ConfigError(Exception):
     """Raised when finding, loading, or validating configuration fails."""
 
 
@@ -159,10 +163,10 @@ def load_config(config_path=None):
     elif found_path is None:
         raise ConfigError("Unable to find config.")
     else:
-        with open(found_path, "r") as fp:
-            config_data = yaml.load(fp)
         try:
+            with open(found_path, "r") as stream:
+                config_data = yaml.load(stream)
             validate(config_data, SCHEMA)
         except Exception as exc:
-            raise ConfigError("Invalid config file: %s" % found_path) from exc
+            raise ConfigError("Unable to load config: %s" % found_path) from exc
         return config_data
