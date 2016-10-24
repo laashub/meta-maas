@@ -56,7 +56,7 @@ class Region:
         for username, data in users_to_add.items():
             self.origin.Users.create(
                 username, data['email'], data['password'],
-                is_superuser=data.get('is_superuser', False))
+                is_admin=data.get('is_admin', False))
         for username, _ in users_to_update.items():
             print(
                 "WARN: Unable to update user '%s' on region '%s'; API "

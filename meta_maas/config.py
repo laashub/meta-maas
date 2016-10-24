@@ -43,7 +43,7 @@ SCHEMA = {
                         "password": {
                             "type": "string",
                         },
-                        "is_superuser": {
+                        "is_admin": {
                             "type": "boolean",
                         },
                     },

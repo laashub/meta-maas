@@ -6,4 +6,4 @@ users:
   test:
     email: test@localhost
     password: password
-    is_superuser: True
+    is_admin: True

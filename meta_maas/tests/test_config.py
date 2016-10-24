@@ -176,7 +176,7 @@ def test_load_config_returns_config_when_regions_and_users(tmpdir):
             'admin': {
                 'email': 'admin@maas.io',
                 'password': 'password',
-                'is_superuser': True,
+                'is_admin': True,
             },
             'user': {
                 'email': 'user@maas.io',
@@ -244,7 +244,7 @@ def test_load_config_raises_ConfigError_user_has_extra_key(tmpdir):
             'admin': {
                 'email': 'admin@maas.io',
                 'password': 'password',
-                'is_superuser': True,
+                'is_admin': True,
                 'extra': 'invalid',
             },
         },
@@ -614,7 +614,7 @@ def test_load_config_returns_config_with_complete_config(tmpdir):
             'admin': {
                 'email': 'admin@maas.io',
                 'password': 'password',
-                'is_superuser': True,
+                'is_admin': True,
             },
             'user': {
                 'email': 'admin@maas.io',
