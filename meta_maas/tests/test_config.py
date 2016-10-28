@@ -27,6 +27,29 @@ def test_find_config_finds_user_home_config(tmpdir, monkeypatch):
     assert find_config() == str(cfg)
 
 
+def test_find_config_finds_user_home_config_in_snap(tmpdir, monkeypatch):
+    """Finds meta-maas.yaml in users home directory when running in a snap."""
+    cfg = tmpdir.join("meta-maas.yaml")
+    cfg.write("")
+    monkeypatch.setenv("SNAP", "/snap/meta-maas/current")
+    monkeypatch.setenv("USER", "blake")
+
+    orig_join = os.path.join
+    call_args = []
+    def new_join(*args):
+        """Save args and restore original join then return path to cfg."""
+        call_args.append(args)
+        if len(call_args) == 2:
+            monkeypatch.setattr(os.path, "join", orig_join)
+            return str(tmpdir)
+        else:
+            return ""
+
+    monkeypatch.setattr(os.path, "join", new_join)
+    assert find_config() == str(cfg)
+    assert call_args[1] == ("/home", "blake")
+
+
 def test_find_config_returns_None_when_no_file(tmpdir):
     """Returns None when the file does not exist."""
     cfg = tmpdir.join("meta-maas.yaml")
@@ -283,6 +306,7 @@ def test_load_config_returns_config_when_regions_and_images_source(tmpdir):
         'images': {
             'source': {
                 'url': 'http://images.maas.io/',
+                'keyring_filename': '/usr/share/keyrings/keyring.gpg',
                 'selections': {
                     'ubuntu': {
                         'releases': ['xenial'],
@@ -308,6 +332,35 @@ def test_load_config_raises_ConfigError_when_missing_source_url(tmpdir):
         },
         'images': {
             'source': {
+                'keyring_filename': '/usr/share/keyrings/keyring.gpg',
+                'selections': {
+                    'ubuntu': {
+                        'releases': ['xenial'],
+                        'arches': ['amd64'],
+                    },
+                },
+            },
+        },
+    }))
+    with pytest.raises(ConfigError) as exc:
+        load_config(str(cfg))
+    assert str(exc.value) == "Unable to load config: %s" % str(cfg)
+
+
+def test_load_config_raises_ConfigError_when_missing_source_keyring(tmpdir):
+    """Raises `ConfigError` when config images source keyring_filename
+    missing."""
+    cfg = tmpdir.join("meta-maas.yaml")
+    cfg.write(yaml.dump({
+        'regions': {
+            'region1': {
+                'url': 'http://localhost:5240/MAAS',
+                'apikey': 'randomstring',
+            },
+        },
+        'images': {
+            'source': {
+                'url': 'http://images.maas.io/',
                 'selections': {
                     'ubuntu': {
                         'releases': ['xenial'],
@@ -624,6 +677,7 @@ def test_load_config_returns_config_with_complete_config(tmpdir):
         'images': {
             'source': {
                 'url': 'http://images.maas.io/',
+                'keyring_filename': '/usr/share/keyrings/keyring.gpg',
                 'selections': {
                     'ubuntu': {
                         'releases': ['trusty', 'xenial'],

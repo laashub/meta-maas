@@ -1,9 +1,35 @@
 regions:
-  test:
+  north:
     url: http://localhost:5240/MAAS
-    apikey: 8Q3HHgCnBuUjNdHjFX:mvJvBpvEV5J7CVDjef:sgnnMwdL444zKbM65jSJNVbtH3Dm7Gh2
+    apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
+  west:
+    url: http://localhost:5240/MAAS
+    apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
+  south:
+     url: http://localhost:5240/MAAS
+     apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
+  east:
+     url: http://localhost:5240/MAAS
+     apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
 users:
   test:
     email: test@localhost
     password: password
     is_admin: True
+images:
+  source:
+    url: http://images.maas.io/ephemeral-v3/daily/
+    keyring_filename: /snap/maas-blake/current/usr/share/keyrings/ubuntu-cloudimage-keyring.gpg
+    selections:
+      ubuntu:
+        releases:
+          - precise
+          - trusty
+          - xenial
+        arches:
+          - amd64
+          - i386
+  custom:
+    test:
+      path: /home/blake/Downloads/ubuntu-16.04-server-amd64.iso
+      architecture: amd64/generic

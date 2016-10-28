@@ -2,12 +2,15 @@ name: meta-maas
 version: 0.1
 summary: Tool to manage multiple MAAS regions
 description: Tool to manage multiple MAAS regions
-grade: devel
+grade: stable
 confinement: strict
 
 apps:
   meta-maas:
     command: bin/meta-maas
+    plugs:
+      - home
+      - network-bind
 
 parts:
   meta-maas:
