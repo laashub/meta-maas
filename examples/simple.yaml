@@ -10,7 +10,7 @@ users:
 images:
   source:
     url: http://images.maas.io/ephemeral-v3/daily/
-    keyring_filename: /snap/maas-blake/current/usr/share/keyrings/ubuntu-cloudimage-keyring.gpg
+    keyring_filename: /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg
     selections:
       ubuntu:
         releases:
