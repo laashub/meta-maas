@@ -3,10 +3,10 @@
 
 """Output HTML to render status of regions."""
 
-from collections import defaultdict
 import json
 import os
 
+from collections import defaultdict
 from distutils.dir_util import copy_tree
 
 
@@ -15,28 +15,6 @@ angular.module('meta-maas').service('metaData', function() {
     this.regions = %s;
 });
 """
-
-
-MACHINE_STATUSES = {
-    0: 'New',
-    1: 'Commissioning',
-    2: 'Failed Commissioning',
-    4: 'Ready',
-    6: 'Deployed',
-    8: 'Broken',
-    9: 'Deploying',
-    10: 'Allocated',
-    11: 'Failed Deployment',
-    12: 'Releasing',
-    13: 'Failed Releasing',
-    14: 'Disk Erasing',
-    15: 'Failed Disk Erasing',
-    16: 'Rescue Mode',
-    17: 'Entering Rescue Mode',
-    18: 'Failed Entering Rescue Mode',
-    19: 'Exiting Rescue Mode',
-    20: 'Failed Exiting Rescue Mode',
-}
 
 
 class OutputHTMLError(Exception):
@@ -61,6 +39,7 @@ def render_data(regions):
 
 
 def get_html_directory():
+    """Return the path to the HTML directory in the source."""
     return os.path.join(os.path.abspath(os.path.dirname(__file__)), "html")
 
 
@@ -69,7 +48,7 @@ def write_html(path, regions):
     if not os.path.exists(path):
         try:
             os.makedirs(path)
-        except exc:
+        except Exception as exc:
             raise OutputHTMLError(
                 "Failed to make output directory: %s" % path) from exc
     elif not os.path.isdir(path):

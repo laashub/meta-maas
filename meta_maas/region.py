@@ -10,9 +10,8 @@ import sys
 import time
 
 from colorclass import Color
-from maas.client.bones import CallError  # pylint: disable=import-error
-from maas.client.viscera import Origin  # pylint: disable=import-error
-from maas.client.viscera import boot_resources # pylint: disable=import-error
+from maas.client.bones import CallError
+from maas.client.viscera import Origin, boot_resources
 from progressbar import Bar, Percentage, ProgressBar
 
 
