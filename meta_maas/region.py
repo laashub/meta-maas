@@ -87,12 +87,11 @@ class Region:
     def sync_source(self, source):
         """Sync the boot sources on the region."""
         # Find the matching source and remove the none matching.
-        matching_source = self._get_matching_source(source)
+        matching_source, updated = self._get_matching_source(source)
 
         # If the keyring_filename doesn't match then delete the source to
         # be re-created.
         is_new = True
-        updated = False
         if matching_source is not None:
             is_new = False
             if matching_source.keyring_filename != source['keyring_filename']:
@@ -108,7 +107,7 @@ class Region:
         # Remove old selections and get a list of those that need to be
         # created.
         selections_updated = self._update_selections(
-            matching_source, source['selections'])
+            matching_source, source['selections'], is_new or updated)
         if not updated:
             updated = selections_updated
 
@@ -135,6 +134,7 @@ class Region:
 
         Any other none matching `BootSource` will be deleted.
         """
+        updated = False
         remote_sources = self.origin.BootSources.read()
         matching_source = None
         for remote_source in remote_sources:
@@ -144,13 +144,13 @@ class Region:
                 self.print_msg(
                     "removed source '%s'" % remote_source.url,
                     level=MessageLevel.WARN)
+                updated = True
             else:
                 matching_source = remote_source
-        return matching_source
+        return matching_source, updated
 
-    def _update_selections(self, source, selections):
+    def _update_selections(self, source, selections, updated):
         """Update the selections for the `source`."""
-        updated = False
         missing_selections = copy.deepcopy(selections)
         remote_selections = (
             self.origin.BootSourceSelections.read(source))
@@ -179,7 +179,8 @@ class Region:
         # Because of lp:1636992, we start and stop the import of
         # boot-resources. This causes the cache to be updated, but nothing
         # gets changed in the images.
-        self._force_cache_update()
+        if updated:
+            self._force_cache_update()
 
         # Add the selections that need to be created.
         first_pass = True

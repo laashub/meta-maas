@@ -2,15 +2,6 @@ regions:
   north:
     url: http://localhost:5240/MAAS
     apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
-  west:
-    url: http://localhost:5240/MAAS
-    apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
-  south:
-     url: http://localhost:5240/MAAS
-     apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
-  east:
-     url: http://localhost:5240/MAAS
-     apikey: Z3D8fy3WNdeE4zavAz:TmYytw7RqYezfFT5SS:hQPnw9dKef33fkTftRDBL2rqNNeNKchr
 users:
   test:
     email: test@localhost

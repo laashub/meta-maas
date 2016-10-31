@@ -10,6 +10,7 @@ from textwrap import dedent
 import colorclass
 
 from .config import SAMPLE_CONFIG, load_config
+from .output import write_html
 from .region import Region
 
 
@@ -29,6 +30,9 @@ def parse_args(args):
     parser.add_argument(
         '-c', '--config', metavar='PATH',
         help='configuration to load')
+    parser.add_argument(
+        '-o', '--output-html', metavar='DIR',
+        help='output HTML report')
     parser.add_argument(
         '-q', '--quiet', action="store_true",
         help='run in quiet mode; produce no output')
@@ -72,3 +76,7 @@ def main(args=None):
     # Now perform the actual syncing.
     for region in regions:
         region.sync(config_data.get('users'), config_data.get('images'))
+
+    # Check if HTML should be written and path is correct.
+    if args.output_html is not None:
+        write_html(args.output_html, regions)

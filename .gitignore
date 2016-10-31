@@ -1,6 +1,11 @@
 .cache/
 .tox/
 __pycache__/
+meta_maas/html/libs/angular.min.js
+meta_maas/html/libs/angular-chart.min.js
+meta_maas/html/libs/build.min.css
+meta_maas/html/libs/Chart.bundle.min.js
+node_modules/
 parts/
 prime/
 stage/

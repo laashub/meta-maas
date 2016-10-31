@@ -17,3 +17,16 @@ parts:
     plugin: python
     source: .
     requirements: requirements.txt
+  meta-html-build:
+    plugin: gulp
+    source: .
+    gulp-tasks:
+      - default
+  meta-html-install:
+    plugin: dump
+    source: parts/meta-html-build/build/meta_maas/html
+    after:
+      - meta-html-build
+    organize:
+      assets: lib/python3.5/site-packages/meta_maas/html/assets
+      libs: lib/python3.5/site-packages/meta_maas/html/libs
