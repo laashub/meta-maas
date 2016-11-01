@@ -3,5 +3,3 @@ install:
   - pip install tox 
 script:
   - tox
-env:
-  - TOXENV=py35
