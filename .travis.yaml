@@ -1,5 +1,13 @@
 language: python
+python:
+  - "3.5"
+
 install:
-  - pip install tox 
+  - pip install tox
+
 script:
-  - tox
+  - tox -e py35
+
+branches:
+  only:
+    - master
