@@ -28,11 +28,15 @@ def render_data(regions):
         statuses = defaultdict(int)
         for machine in region.origin.Machines.read():
             statuses[machine.status_name] += 1
+        labels = sorted(statuses.keys())
         data[region.name] = {
             'url': region.url,
             'statuses': {
-                'data': list(statuses.values()),
-                'labels': list(statuses.keys()),
+                'data': [
+                    statuses[label]
+                    for label in labels
+                ],
+                'labels': labels,
             }
         }
     return SERVICE_TEMPLATE % json.dumps(data)
