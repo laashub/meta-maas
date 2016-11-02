@@ -3,4 +3,4 @@ jsonschema
 pbr
 progressbar33
 pyyaml
-git+https://github.com/alburnum/alburnum-maas-client.git#egg=alburnum_maas_client
+git+https://github.com/maas/python-libmaas.git#egg=python_libmaas

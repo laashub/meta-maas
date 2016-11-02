@@ -4,7 +4,7 @@ regions through one tool. A defined YAML file allows syncronasing users and
 boot images between regions a generated output provides status information
 about each region in a single HTML report.
 
-[![Build Status](https://travis-ci.org/maas/meta-maas.svg?branch=master)](https://travis-ci.org/maas/meta-maas)
+[![Build Status](https://travis-ci.org/maas/meta-maas.svg?branch=master)](https://travis-ci.org/maas/meta-maas) [![codecov](https://codecov.io/gh/maas/meta-maas/branch/master/graph/badge.svg)](https://codecov.io/gh/maas/meta-maas)
 
 For more information on MAAS see http://maas.io/.
 

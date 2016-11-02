@@ -1,4 +1,5 @@
 .cache/
+.coverage
 .tox/
 __pycache__/
 meta_maas/html/libs/angular.min.js
