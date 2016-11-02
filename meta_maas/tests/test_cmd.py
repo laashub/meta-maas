@@ -16,27 +16,45 @@ from ..config import SAMPLE_CONFIG
 def test_parse_args_handles_all_long_arguments():
     """parse_args handles all long arguments."""
     config_path = "/my/testing/path"
+    report_path = "/my/test/report"
     args = parse_args([
         "--config", config_path,
         "--quiet",
         "--no-color",
         "--sample",
+        "--report", report_path,
     ])
     assert args.config == config_path
     assert args.quiet is True
     assert args.no_color is True
     assert args.sample is True
+    assert args.report == report_path
 
 
 def test_parse_args_handles_all_short_arguments():
     """parse_args handles all short arguments."""
     config_path = "/my/testing/path"
+    report_path = "/my/test/report"
     args = parse_args([
         "-c", config_path,
         "-q",
+        "-r", report_path,
     ])
     assert args.config == config_path
     assert args.quiet is True
+    assert args.report == report_path
+
+
+def test_main_uses_sys_argv(monkeypatch):
+    """sys.argv is used when args not passed to `main`."""
+    mock_print = Mock()
+    monkeypatch.setattr(cmd_module, "print", mock_print)
+    mock_load = Mock()
+    monkeypatch.setattr(cmd_module, "load_config", mock_load)
+    monkeypatch.setattr(sys, "argv", ["meta-maas", "--sample"])
+    main()
+    assert mock_print.call_args == call(SAMPLE_CONFIG, end="")
+    assert mock_load.called is False
 
 
 def test_main_disables_colors_on_argument(monkeypatch):
@@ -103,3 +121,31 @@ def test_main_creates_regions_and_calls_connect_and_sync(monkeypatch):
     assert region_obj.sync.call_args_list == [
         call(sentinel.users, sentinel.images),
         call(sentinel.users, sentinel.images)]
+
+
+def test_main_calls_write_html(monkeypatch):
+    """Calls `write_html` when report is to be ran."""
+    config = {
+        'regions': {
+            'region1': {
+                'url': 'http://region1:5240/MAAS',
+                'apikey': 'apikey1',
+            },
+            'region2': {
+                'url': 'http://region2:5240/MAAS',
+                'apikey': 'apikey2',
+            },
+        },
+        'users': sentinel.users,
+        'images': sentinel.images,
+    }
+    region_obj = MagicMock()
+    region_class = MagicMock()
+    region_class.return_value = region_obj
+    write_html = Mock()
+    monkeypatch.setattr(cmd_module, "Region", region_class)
+    monkeypatch.setattr(cmd_module, "load_config", lambda _path: config)
+    monkeypatch.setattr(cmd_module, "write_html", write_html)
+    report_path = "/my/test/report"
+    main(['--quiet', '--report', report_path])
+    assert write_html.call_args == call(report_path, [region_obj, region_obj])

@@ -31,7 +31,7 @@ def parse_args(args):
         '-c', '--config', metavar='PATH',
         help='configuration to load')
     parser.add_argument(
-        '-o', '--output-html', metavar='DIR',
+        '-r', '--report', metavar='DIR',
         help='output HTML report')
     parser.add_argument(
         '-q', '--quiet', action="store_true",
@@ -78,5 +78,5 @@ def main(args=None):
         region.sync(config_data.get('users'), config_data.get('images'))
 
     # Check if HTML should be written and path is correct.
-    if args.output_html is not None:
-        write_html(args.output_html, regions)
+    if args.report is not None:
+        write_html(args.report, regions)
