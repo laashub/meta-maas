@@ -10,8 +10,8 @@ from textwrap import dedent
 import colorclass
 
 from .config import SAMPLE_CONFIG, load_config
-from .output import write_html
 from .region import Region
+from .report import write_html
 
 
 # Used for mocking out in tests.
