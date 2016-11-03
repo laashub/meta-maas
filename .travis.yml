@@ -1,3 +1,6 @@
+sudo: required
+services:
+  - docker
 language: python
 python:
   - "3.5"
@@ -7,6 +10,7 @@ install:
 
 script:
   - tox -e py35
+  - docker run -v $(pwd):$(pwd) -t ubuntu:xenial sh -c "apt update && apt install snapcraft && cd $(pwd) && snapcraft"
 
 after_success:
   - codecov --env TRAVIS_PYTHON_VERSION
