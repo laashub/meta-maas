@@ -11,7 +11,7 @@ For more information on MAAS see http://maas.io/.
 ### How to Install
 meta-MAAS is provided through a [snap](http://snapcraft.io).
 ```
-sudo snap install meta-maas --candidate
+sudo snap install meta-maas
 ```
 
 ### Sample YAML
