@@ -15,6 +15,10 @@ from maas.client.viscera import Origin, boot_resources
 from progressbar import Bar, Percentage, ProgressBar
 
 
+# Used for mocking out in tests.
+print = print  # pylint: disable=invalid-name,redefined-builtin
+
+
 class MessageLevel(enum.Enum):
     """Level of message to print."""
 
