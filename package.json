@@ -8,6 +8,7 @@
     "angular": "^1.5.8",
     "angular-chart.js": "^1.0.3",
     "angularjs": "0.0.1",
+    "cloud-vanilla-theme": "0.0.22",
     "gulp": "3.9",
     "gulp-autoprefixer": "3.1.0",
     "gulp-cache": "0.2.8",
@@ -20,6 +21,7 @@
     "gulp-scss-lint": "0.4.0",
     "gulp-util": "3.0.4",
     "maas-gui-vanilla-theme": "1.0.0",
-    "sassdoc": "2.1.7"
+    "sassdoc": "2.1.7",
+    "vanilla-framework": "^0.0.71"
   }
 }
