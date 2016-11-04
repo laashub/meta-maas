@@ -12,3 +12,4 @@ prime/
 stage/
 *.egg-info
 *.snap
+*_source.tar.bz2
