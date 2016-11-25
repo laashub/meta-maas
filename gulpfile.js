@@ -32,4 +32,8 @@ gulp.task('copy', ['sass'], function () {
     gulp.src(srcs).pipe(gulp.dest('./meta_maas/html/libs'));
 });
 
+gulp.task('snap-install', ['default'], function () {
+    gulp.src('./meta_maas/html/**').pipe(gulp.dest(process.env.SNAPCRAFT_PART_INSTALL));
+});
+
 gulp.task('default', ['copy']);
