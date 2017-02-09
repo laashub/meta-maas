@@ -38,11 +38,13 @@ def test_render_data_outputs_angular_service():
     region_one.url = "http://region_one"
     region_one.origin.Machines.read.return_value = [
         machine_one, machine_two, machine_three, machine_four]
+    region_one.machine_count = 4
     region_two = MagicMock()
     region_two.name = "region_two"
     region_two.url = "http://region_two"
     region_two.origin.Machines.read.return_value = [
         machine_one, machine_two, machine_three, machine_four]
+    region_two.machine_count = 4
     output = {
         region_one.name: {
             "url": region_one.url,
@@ -50,13 +52,15 @@ def test_render_data_outputs_angular_service():
                 "data": [1, 2, 1],
                 "labels": ["Allocated", "New", "Ready"],
             }
+            "machine_count": region_one.machine_count,
         },
         region_two.name: {
             "url": region_two.url,
             "statuses": {
                 "data": [1, 2, 1],
                 "labels": ["Allocated", "New", "Ready"],
-            }
+            },
+            "machine_count": region_two.machine_count,
         },
     }
     output_js = SERVICE_TEMPLATE % json.dumps(output)
