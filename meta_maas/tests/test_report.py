@@ -51,7 +51,7 @@ def test_render_data_outputs_angular_service():
             "statuses": {
                 "data": [1, 2, 1],
                 "labels": ["Allocated", "New", "Ready"],
-            }
+            },
             "machine_count": region_one.count,
         },
         region_two.name: {
