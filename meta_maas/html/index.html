@@ -17,6 +17,25 @@
     <script type="text/javascript" src="libs/angular-chart.min.js"></script>
     <script type="text/javascript" src="libs/meta_maas.js"></script>
     <script type="text/javascript" src="data.js"></script>
+    <style media="screen">
+      a {
+        border-bottom: 0;
+        color: #007aa6;
+      }
+
+      a:hover {
+        color: #007aa6;
+        text-decoration: underline;
+      }
+
+      h1 a {
+        color: #333333;
+      }
+
+      h1 a:hover {
+        color: #333333;
+      }
+    </style>
 </head>
 <body ng-app="meta-maas">
     <div class="wrapper--flex">
@@ -93,13 +112,21 @@
                     <div class="wrapper--inner">
                         <div class="six-col" data-ng-repeat="(name, info) in regions" ng-class-even="'last-col'">
                             <div class="action-card">
-                                <h1 class="action-card__title"><a href="{{info.url}}" target="_blank">{{name}}</a></h1>
+                                <h1 class="action-card__title u-border--bottom u-border--dotted u-margin--top-none u-padding--bottom-small">
+                                    <a href="{{info.url}}" target="_blank">{{name}}</a>
+                                </h1>
                                 <h3 data-ng-if="!info.statuses.data.length" class="u-text--center">0 machines</h3>
                                 <div data-ng-if="info.statuses.data.length">
                                     <canvas class="chart chart-doughnut"
-                                        chart-data="info.statuses.data" chart-labels="info.statuses.labels"
-                                        chart-options="options">
+                                        chart-data="info.statuses.data"
+                                        chart-labels="info.statuses.labels"
+                                        chart-colors="colors"
+                                        chart-options="options"
+                                        chart-dataset-override="datasetOverride">
                                     </canvas>
+                                </div>
+                                <div class="u-border--top u-border--dotted u-width--full u-text--right u-padding--top-small">
+                                    <p>{{info.machine_count}} nodes in {{name}} region. <a href="{{info.url}}" target="_blank">See details.</a></p>
                                 </div>
                             </div>
                         </div>
