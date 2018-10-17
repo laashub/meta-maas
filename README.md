@@ -55,3 +55,6 @@ images:
       path: /path/to/image/file.dd.tgz
       filetype: ddtgz
 ```
+
+### Sample HTML output
+![Meta MAAS](/setup/meta-maas.png)
